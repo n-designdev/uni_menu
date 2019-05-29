@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mainMenu><menuBar><subMenu id="tk.shotgun"><label>Shotgun</label><insertBefore>help_menu</insertBefore><subMenu id="tk.context.menu"><label>Current Context</label><scriptMenuStripDynamic id="tk.context_dynamic_menu"><contentsScriptCode><![CDATA[
+engine = None
+menu_items = []
+try:
+    import tank.platform.engine
+    engine = tank.platform.engine.current_engine()
+    if engine:
+        # the commands to display in this menu
+        cmds = engine._menu._get_context_commands()
+        # build the list that houdini expects
+        for cmd in cmds:
+            menu_items.extend([cmd.get_id(), cmd.name])
+    else:
+        menu_items.extend(["tk.houdini.menu.no.shotgun", "Toolkit is disabled - Click for details"])
+except Exception as e:
+    import traceback
+    error = traceback.format_exc()
+    if engine:
+        # store the exception on the menu object for display in the callback
+        engine._menu._menu_error = Exception(str(e) + ". " + error)
+    # just give houdini a special error item for the menu
+    menu_items.extend(
+        ["tk.houdini.menu.error", "Menu Error. Click for Details..."])
+else:
+    if engine:
+        engine._menu._menu_error = None
+finally:
+    return menu_items
+]]></contentsScriptCode><scriptCode><![CDATA[
+import hou
+engine = None
+try:
+    import tank.platform.engine
+    # get the selected menu id
+    command_id = kwargs["selectedtoken"]
+    engine = tank.platform.engine.current_engine()
+    # special id if there is no shotgun context/engine
+    if command_id == "tk.houdini.menu.no.shotgun":
+        msg = (
+            "It appears as though you are not currenly working in a Shotgun "
+            "context. There is no Shotgun for Houdini Engine running so no "
+            "menu or shelf items are available. In order to restart the Shotgun "
+            "integration, please close and reopen Houdini or choose a file "
+            "from your Shotgun project in the 'Recent Files' menu. If you "
+            "believe this to be an error, please contact your support team."
+        )
+        hou.ui.displayMessage(msg, severity=hou.severityType.Warning)
+    # special id if errors occured and they clicked for more info
+    if command_id == "tk.houdini.menu.error":
+        # try to locate the exception on the menu object and raise it
+        if engine._menu._menu_error:
+            raise engine._menu._menu_error
+        # no stored exception, tell the user to look in the shell
+        else:
+            raise Exception("The error message should show up in your shell.")
+    # the special context item. launch the context in browser
+    if command_id == engine._menu._context_menu_item_id:
+        from tank.platform.qt import QtCore, QtGui
+        url = engine.context.shotgun_url
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl(url))
+    # should be a registered command. launch it
+    else:
+        engine.launch_command(command_id)
+except Exception as e:
+    # handle any exceptions raised during menu building
+    msg = "An error occured building the Shotgun menu...\n\n%s" % (e,)
+    if engine:
+        hou.ui.displayMessage(msg, severity=hou.severityType.Error)
+    else:
+        print msg
+]]></scriptCode></scriptMenuStripDynamic></subMenu><separatorItem /><scriptMenuStripDynamic id="tk.main_dynamic_menu"><contentsScriptCode><![CDATA[
+engine = None
+menu_items = []
+try:
+    import tank.platform.engine
+    engine = tank.platform.engine.current_engine()
+    if engine:
+        # the commands to display in this menu
+        cmds = engine._menu._get_commands_by_app()
+        # build the list that houdini expects
+        for cmd in cmds:
+            menu_items.extend([cmd.get_id(), cmd.name])
+    else:
+        menu_items.extend(["tk.houdini.menu.no.shotgun", "Toolkit is disabled - Click for details"])
+except Exception as e:
+    import traceback
+    error = traceback.format_exc()
+    if engine:
+        # store the exception on the menu object for display in the callback
+        engine._menu._menu_error = Exception(str(e) + ". " + error)
+    # just give houdini a special error item for the menu
+    menu_items.extend(
+        ["tk.houdini.menu.error", "Menu Error. Click for Details..."])
+else:
+    if engine:
+        engine._menu._menu_error = None
+finally:
+    return menu_items
+]]></contentsScriptCode><scriptCode><![CDATA[
+import hou
+engine = None
+try:
+    import tank.platform.engine
+    # get the selected menu id
+    command_id = kwargs["selectedtoken"]
+    engine = tank.platform.engine.current_engine()
+    # special id if there is no shotgun context/engine
+    if command_id == "tk.houdini.menu.no.shotgun":
+        msg = (
+            "It appears as though you are not currenly working in a Shotgun "
+            "context. There is no Shotgun for Houdini Engine running so no "
+            "menu or shelf items are available. In order to restart the Shotgun "
+            "integration, please close and reopen Houdini or choose a file "
+            "from your Shotgun project in the 'Recent Files' menu. If you "
+            "believe this to be an error, please contact your support team."
+        )
+        hou.ui.displayMessage(msg, severity=hou.severityType.Warning)
+    # special id if errors occured and they clicked for more info
+    if command_id == "tk.houdini.menu.error":
+        # try to locate the exception on the menu object and raise it
+        if engine._menu._menu_error:
+            raise engine._menu._menu_error
+        # no stored exception, tell the user to look in the shell
+        else:
+            raise Exception("The error message should show up in your shell.")
+    # the special context item. launch the context in browser
+    if command_id == engine._menu._context_menu_item_id:
+        from tank.platform.qt import QtCore, QtGui
+        url = engine.context.shotgun_url
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl(url))
+    # should be a registered command. launch it
+    else:
+        engine.launch_command(command_id)
+except Exception as e:
+    # handle any exceptions raised during menu building
+    msg = "An error occured building the Shotgun menu...\n\n%s" % (e,)
+    if engine:
+        hou.ui.displayMessage(msg, severity=hou.severityType.Error)
+    else:
+        print msg
+]]></scriptCode></scriptMenuStripDynamic></subMenu><modifyItem id="help_menu"><insertAfter /></modifyItem></menuBar></mainMenu>

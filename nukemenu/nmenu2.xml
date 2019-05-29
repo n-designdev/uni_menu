@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<NukeWindow>
+  <menu name="ND">
+    <category name="alone">
+        <menuItem name = "File/Read Plate1" command = "import readPlate;AutoRead.AutoRead()" shortcut = "Ctrl+Shift+r"/>
+    </category>
+    <category name="AmiTools1">
+        <menuItem name = "NodeFileOpen1" command = "import NodeFileOpen;NodeFileOpen.dirOpen" shortcut = "Shift+o"/>
+        <menuItem name = "MergeMask/MargeMask" command = "import MergeMask;MergeMask" shortcut = "Ctrl+m"/>
+        <menuItem name = "MergeMask/MargeMaskBunki1" command = "import MergeMask;MergeMaskBunki()" shortcut = "Ctrl+Shift+m"/>
+        <menuItem name = "MergeMask/MargeMaskRoto1" command = "import MergeMask;MergeMaskRoto()" shortcut = "Ctrl+Shift+Alt+m"/>
+        <menuItem name = "AutoRead1" command = "import AutoRead;AutoRead.AutoRead()" shortcut = "Ctrl+r"/>
+        <menuItem name = "autobackdrop/autobackdrop_N1" command = "import autobackdrop_N;autobackdrop_N.autoBackdrop()" shortcut="Shift+Alt+b"/>
+        <menuItem name = "autobackdrop/autobackdropResoze1" command = "import autobackdrop_N;autobackdrop_N.autoBackdropResize()" shortcut="Shift+Ctrl+Alt+b"/>
+    </category>
+    <category name="Edit">
+        <menuItem name = "multiplePaste1" command = "import multiplePaste;multiple_paste()" shortcut = "Ctrl+Shift+v"/>
+        <menuItem name = "Multiple Paste without Insert1" command = "import multiplePastel;multiple_paste_without_insert()" shortcut="Ctrl+Alt+Shift+v"/>
+        <menuItem name = "One Way Clone1" command = "import oneWayClone;oneWayClone.main()" shortcut = "Ctrl+Alt+c"/>
+        <menuItem name = "Change to RelationPath1" command = "import changeRelPath;changeRelPath.abs_to_rel()"/>
+        <menuItem name = "Change to AbsolutePath1" command = "import changeRelPath;changeRelPath.rel_to_abs()"/>
+        <menuIten name = "Slip Keyframes1" command = "import slipKeyframes;slipKeyframes.main()"/>
+    </category>
+    <category name="alone">
+        <menuItem name = "ND_CollectFiles1" command = "import ND_CollectFiles.main as CollectFiles;main=CollectFiles.ND_CollectFiles();main.set_ui()"/>
+        <menuItem name = "ND_Submitter1" command="import ND_Submitter.main as Submitter;main = Submitter.ND_Submitter();main.show();main.set_initial_value()"/>
+        <menuItem name = "PathChanger1" command = "import PathChanger.main2 as PChanger;PChanger.PathChanger().set_ui()" shortcut = "Ctrl+C"/>
+
+        <menuItem name = "Dots1" command = "import Dots;Dots.Dots()" shortcut = "Alt+."/>
+        <menuItem name = "NodesControlX1" command = "import NodesControl;NodesControl.FitX()" shortcut = "Shift+Ctrl+Alt+x"/>
+        <menuItem name = "NodesControlY1" command = "import NodesControl;NodesControl.FitY()" shortcut = "Shift+Ctrl+Alt+y"/>
+        <menuItem name = "Auto Crop1" command = "import nukeLib; autocrop()"/>
+        <menuItem name = "Create Camera From EXR (Vray)1" command = "import CreateExrCamVray;CreateExrCamVray.createExrCamVray(nuke.selectedNode())"/>
+        <menuItem name = "halfQT1" command = "import halfQT; halfQT.halfQT()" shortcut="Shift+q"/>
+        <menuItem name = "halfQT_mira1" command = "import halfQT_mira;halfQT_mira.halfQT_mira()" shortcut="Shift+Ctrl+q"/>
+
+        <menuItem name = "shiftHP1" command = "import NodeShift;NodeShift.ShiftHP()" shortcut = "Ctrl+Shift+Right"/>
+        <menuItem name = "shiftHN1" command = "import NodeShift;NodeShift.ShiftHN()" shortcut = "Ctrl+Shift+Left"/>
+        <menuItem name = "shiftVP1" command = "import NodeShift;NodeShift.ShiftVP()" shortcut = "Ctrl+Shift+Up"/>
+        <menuItem name = "shiftVN1" command = "import NodeShift;NodeShift.ShiftVN()" shortcut = "Ctrl+Shift+Down"/>
+
+        <menuItem name = "Copy1" command = "poststampCopyPaste.copyHijack" shortcut = "Ctrl+C"/>
+        <menuItem name = "Paste1" command = "poststampCopyPaste.pasteHijack" shortcut = "Ctrl+V"/>
+    </category>
+    <category name="Nodes">
+        <menuItem name = "Utility1/ND_Submitter/Launch ND_Submitter" command = "main=Submitter.ND_Submitter();main.show();main.set_initial_value()"/>
+        <menuItem name = "Utility1/ND_Submitter/SubmitSelectedWriteNodes" command = "import submit;submite.submit_rendering_job()" shortcut = "Shift+Ctrl+Alt+w"/>
+    </category>
+  </menu>
+
+</NukeWindow>
