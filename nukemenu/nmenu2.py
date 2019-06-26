@@ -35,10 +35,6 @@ class MenuSetupHandler:
             categoryName = CategoryParent.getAttributeNode(self.nameAttr)
             if CategoryParent.nodeName == self.categoryTag:
                 subcate = CategoryParent.getAttributeNode(self.nameAttr)
-                print subcate.nodeValue
-                print 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-                # if len(self.catego_history) != 0:
-                    # self.catego_history.append('/')
                 self.catego_history.append(str(subcate.nodeValue))
                 Child_categoryParentNodes = CategoryParent.childNodes
                 for Child_categoryParentNode in Child_categoryParentNodes:
@@ -130,7 +126,6 @@ def setupMenu(pos='ND',menu=None):
     toolbar = nuke.menu('Nodes')
 
     for categoryName, menuItemName, menuItemCmd, menuItemShortcut in zip(menuCategoryNames, menuItemNames, menuItemCommands,menuItemShortcuts):
-            print menuItemName
             if str(menuItemShortcut)=='':
                 m.addCommand(str(menuItemName), str(menuItemCmd));
             else:
